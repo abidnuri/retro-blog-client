@@ -13,6 +13,7 @@ import Login from './components/Login/Login';
 import NotFound from './components/NotFound/NotFound';
 import Navbar from './components/Shared/Navbar/Navbar';
 import Footer from './components/Shared/Footer/Footer';
+import BlogPost from './components/BlogPost/BlogPost';
 
 
 function App() {
@@ -34,6 +35,9 @@ function App() {
         </Route>
         <Route path="/login">
           <Login />
+        </Route>
+        <Route path="/post/:postID">
+          <BlogPost />
         </Route>
         <Route path="*">
           <NotFound />
