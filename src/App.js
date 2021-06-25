@@ -17,6 +17,7 @@ import BlogPost from './components/BlogPost/BlogPost';
 
 
 function App() {
+  const admin = false;
   return (
     <Router>
       <Navbar />
@@ -30,11 +31,9 @@ function App() {
         <Route path="/contact">
           <Contact />
         </Route>
-        <Route path="/write">
-          <Write />
+        <Route path="/write"> {admin ? <Write /> : <Home />}
         </Route>
-        <Route path="/login">
-          <Login />
+        <Route path="/login"> {admin ? <Home /> : <Login />}
         </Route>
         <Route path="/post/:postID">
           <BlogPost />
