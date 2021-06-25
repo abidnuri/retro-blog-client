@@ -6,21 +6,40 @@ import {
   Route,
 } from "react-router-dom";
 import Home from './components/Home/Home';
+import About from './components/About/About';
+import Contact from './components/Contact/Contact';
+import Write from './components/Write/Write';
+import Login from './components/Login/Login';
+import NotFound from './components/NotFound/NotFound';
+import Navbar from './components/Shared/Navbar/Navbar';
+import Footer from './components/Shared/Footer/Footer';
+
 
 function App() {
   return (
     <Router>
+      <Navbar />
       <Switch>
-        <Route path="/about">
-
-        </Route>
-        <Route path="/users">
-
-        </Route>
-        <Route path="/">
+        <Route exact path="/">
           <Home />
         </Route>
+        <Route path="/about">
+          <About />
+        </Route>
+        <Route path="/contact">
+          <Contact />
+        </Route>
+        <Route path="/write">
+          <Write />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="*">
+          <NotFound />
+        </Route>
       </Switch>
+      <Footer />
     </Router>
   );
 }

@@ -7,8 +7,7 @@ const Login = () => {
 
     console.log(watch("example"));
     return (
-        <div class="container mx-auto px-4 flex justify-center">
-           
+        <div class="container mx-auto px-4 mt-5 flex justify-center">           
             <form onSubmit={handleSubmit(onSubmit)}>
             <h2 className="text-2xl text-center text-gray-200 p-6 bg-green-900">Login Here</h2> <br />
                 <label class="block py-2">

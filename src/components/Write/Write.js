@@ -3,7 +3,7 @@ import './Write.css';
 
 const Write = () => {
     return (
-        <div class="container mx-auto px-4 flex justify-center">
+        <div class="container mx-auto px-4 mt-5 flex justify-center">
             <form className="writeForm">
                 <label class="block">
                     <h2 class="text-gray-700 text-2xl">Title</h2>
