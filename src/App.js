@@ -17,7 +17,7 @@ import BlogPost from './components/BlogPost/BlogPost';
 
 
 function App() {
-  const admin = false;
+  const admin = true;
   return (
     <Router>
       <Navbar />

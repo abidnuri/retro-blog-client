@@ -3,7 +3,7 @@ import './Navbar.css';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-    const admin = false;
+    const admin = true;
     return (
         <header className="text-gray-600 body-font">
             <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">

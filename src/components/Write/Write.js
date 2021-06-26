@@ -1,30 +1,61 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import './Write.css';
 
 const Write = () => {
+    const { register, handleSubmit, name, name2, desc, watch, formState: { errors } } = useForm();
+
+    console.log(watch("example"));
+    const [imageURL, setIMageURL] = useState(null);
+
+    const onSubmit = (data) => {
+        const eventData = {
+            name: data.name,
+            weight: data.weight,
+            price: data.price,
+            imageURL: imageURL,
+        };
+        console.log(data);
+        const url = `http://localhost:8000/addEvent`;
+
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(eventData),
+        }).then((res) => console.log("server side response", res));
+    };
+
+    const handleImageUpload = (event) => {
+        console.log(event.target.files[0]);
+        const imageData = new FormData();
+        imageData.set("key", "6ed2991a490963f34aaea2c30cd3ad6b");
+        imageData.append("image", event.target.files[0]);
+
+        axios
+            .post("https://api.imgbb.com/1/upload", imageData)
+            .then(function (response) {
+                setIMageURL(response.data.data.display_url);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+
     return (
-        <div className="container mx-auto px-4 mt-5 flex justify-center">
-            <form className="writeForm">
-                <label className="block">
-                    <h2 className="text-gray-700 text-2xl">Title</h2>
-                    <input type="text" className="h-12 mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" rows="4" placeholder="Title" />
-                </label>
-                <label className="block">
-                    <span className="text-gray-700 text-2xl">Select Your Image Here</span>
-                    <input type="file" className="h-full w-full opacity-0" name="" />
-                    <svg xmlns="http://www.w3.org/2000/svg" className="plus-icon w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                </label>
-                <label className="block">
-                    <span className="text-gray-700 text-2xl">Write Your Story</span>
-                    <textarea className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" rows="4" placeholder="Write your story....."></textarea>
-                </label>
-                <button type="submit" className="my-6 inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                    Publish
-                </button>
+        <>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <h2 className="text-gray-700 text-2xl">Title</h2>
+                <input defaultValue="Title" name="name" {...register("name")} className="h-12 mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" rows="4" />
+                <input defaultValue="Title2" name="name2" {...register("name2")} className="h-12 mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" rows="4" />
+                <input defaultValue="Write story here" name="desc" {...register("desc")} className="h-12 mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" rows="4" />
+                <input name="exampleRequired" onChange={handleImageUpload} type="file" className="h-full w-full" />
+                {errors.exampleRequired && <span>This field is required</span>}
+                <input type="submit" />
             </form>
-        </div>
+        </>
     );
 };
 
