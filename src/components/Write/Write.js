@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import './Write.css';
 
 const Write = () => {
-    const { register, handleSubmit, name, name2, desc, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
     console.log(watch("example"));
     const [imageURL, setIMageURL] = useState(null);
@@ -17,7 +17,7 @@ const Write = () => {
             imageURL: imageURL,
         };
         console.log(data);
-        const url = `http://localhost:8000/addEvent`;
+        const url = `http://localhost:8000/addPost`;
 
         fetch(url, {
             method: "POST",
@@ -46,15 +46,23 @@ const Write = () => {
 
     return (
         <>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <h2 className="text-gray-700 text-2xl">Title</h2>
-                <input defaultValue="Title" name="name" {...register("name")} className="h-12 mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" rows="4" />
-                <input defaultValue="Title2" name="name2" {...register("name2")} className="h-12 mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" rows="4" />
-                <input defaultValue="Write story here" name="desc" {...register("desc")} className="h-12 mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" rows="4" />
-                <input name="exampleRequired" onChange={handleImageUpload} type="file" className="h-full w-full" />
-                {errors.exampleRequired && <span>This field is required</span>}
-                <input type="submit" />
-            </form>
+            <div className="container mx-auto justify-center">
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <h2 className="text-gray-700 text-2xl">Title</h2>
+                    <input defaultValue="Title" name="name" {...register("name")} className="h-12 mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" rows="4" />
+                    <textarea
+                        type="text"
+                        placeholder="Tell Your story"
+                        name="description"
+                        rows="8"
+                        {...register("description")}
+                        className="w-full py-3 px-8 ring-0 focus:outline-none border-0 text-md font-semibold tracking-wider"
+                    ></textarea>
+                    <input name="exampleRequired" onChange={handleImageUpload} type="file" className="h-full w-full" />
+                    {errors.exampleRequired && <span>This field is required</span>}
+                    <input className="my-6 inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" type="submit" />
+                </form>
+            </div>
         </>
     );
 };

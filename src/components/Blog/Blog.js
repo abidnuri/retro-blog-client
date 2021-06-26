@@ -4,7 +4,7 @@ import SingleBlog from '../SingleBlog/SingleBlog';
 const Blog = () => {
     const [blog, setBlog] = useState([]);
     useEffect(() => {
-        fetch(`http://localhost:8000/events`)
+        fetch(`http://localhost:8000/posts`)
             .then(res => res.json())
             .then(data => setBlog(data));
     }, []);

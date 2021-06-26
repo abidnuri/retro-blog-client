@@ -5,7 +5,7 @@ const BlogPost = () => {
     const { postID } = useParams();
     const [postDetails, setPostDetails] = useState({});
     useEffect(() => {
-        fetch(`http://localhost:8000/events/${postID}`)
+        fetch(`http://localhost:8000/posts/${postID}`)
             .then(res => res.json())
             .then(data => setPostDetails(data));
     }, [postID]);
