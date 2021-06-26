@@ -17,7 +17,7 @@ const Write = () => {
             imageURL: imageURL,
         };
         console.log(data);
-        const url = `http://localhost:8000/addPost`;
+        const url = `https://stormy-coast-65676.herokuapp.com/addPost`;
 
         fetch(url, {
             method: "POST",
