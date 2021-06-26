@@ -12,11 +12,11 @@ const Write = () => {
     const onSubmit = (data) => {
         const eventData = {
             name: data.name,
-            weight: data.weight,
-            price: data.price,
+            description: data.description,
             imageURL: imageURL,
         };
-        console.log(data);
+        // console.log(eventData);
+
         const url = `https://stormy-coast-65676.herokuapp.com/addPost`;
 
         fetch(url, {
