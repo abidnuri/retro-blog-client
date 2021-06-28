@@ -8,6 +8,7 @@ const Write = () => {
 
     console.log(watch("example"));
     const [imageURL, setIMageURL] = useState(null);
+    const [name, setName] = useState("");
 
     const onSubmit = (data) => {
         const eventData = {
@@ -15,9 +16,10 @@ const Write = () => {
             description: data.description,
             imageURL: imageURL,
         };
+
         // console.log(eventData);
 
-        const url = `https://stormy-coast-65676.herokuapp.com/addPost`;
+        const url = `https://floating-plains-53278.herokuapp.com/addPost`;
 
         fetch(url, {
             method: "POST",
@@ -49,18 +51,37 @@ const Write = () => {
             <div className="container mx-auto justify-center">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <h2 className="text-gray-700 text-2xl">Title</h2>
-                    <input defaultValue="Title" name="name" {...register("name")} className="h-12 mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" rows="4" />
+                    <input
+                        placeholder="Blog name"
+                        name="name"
+                        
+                        {...register("name", { required: true })}
+                        className="h-12 mt-1 block px-8 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
+                        rows="4"
+                    />
+                    <input
+                        name="exampleRequired"
+                        onChange={handleImageUpload}
+                        type="file"
+                        className="h-full w-full py-5"
+                    />
+                    <h2 className="text-gray-700 text-2xl">Write Here</h2>
                     <textarea
                         type="text"
                         placeholder="Tell Your story"
                         name="description"
                         rows="8"
-                        {...register("description")}
-                        className="w-full py-3 px-8 ring-0 focus:outline-none border-0 text-md font-semibold tracking-wider"
+                        {...register("description", { required: true })}
+                        className="w-full py-3 px-8 focus:bg-white ring-1 rounded-md bg-gray-100 focus:outline-none border-0 text-md font-semibold"
                     ></textarea>
-                    <input name="exampleRequired" onChange={handleImageUpload} type="file" className="h-full w-full" />
-                    {errors.exampleRequired && <span>This field is required</span>}
-                    <input className="my-6 inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" type="submit" />
+                    {errors.exampleRequired && <h2>This field is required</h2>}
+                    <button
+                        // onClick={()=>{}}
+                        className="cursor-pointer my-6 inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+                        type="submit"
+                        value={name}>
+                        Submit
+                    </button>
                 </form>
             </div>
         </>
