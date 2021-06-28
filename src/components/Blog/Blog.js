@@ -7,13 +7,13 @@ const Blog = () => {
     let [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        fetch(`https://floating-plains-53278.herokuapp.com/posts`)
+            .then(res => res.json())
+            .then(data => setBlog(data));
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
         }, 3000);
-        fetch(`https://floating-plains-53278.herokuapp.com/posts`)
-            .then(res => res.json())
-            .then(data => setBlog(data));
     }, []);
 
     return (
