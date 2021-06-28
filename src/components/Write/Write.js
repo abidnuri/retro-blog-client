@@ -1,14 +1,15 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast, { Toaster } from 'react-hot-toast';
 import './Write.css';
+
 
 const Write = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
     console.log(watch("example"));
     const [imageURL, setIMageURL] = useState(null);
-    const [name, setName] = useState("");
 
     const onSubmit = (data) => {
         const eventData = {
@@ -27,7 +28,10 @@ const Write = () => {
                 "content-type": "application/json",
             },
             body: JSON.stringify(eventData),
-        }).then((res) => console.log("server side response", res));
+        }).then((res) => {
+            console.log("server side response", res);
+            toast.success('Successfully posted on homepage');
+        });
     };
 
     const handleImageUpload = (event) => {
@@ -54,7 +58,7 @@ const Write = () => {
                     <input
                         placeholder="Blog name"
                         name="name"
-                        
+
                         {...register("name", { required: true })}
                         className="h-12 mt-1 block px-8 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
                         rows="4"
@@ -74,14 +78,14 @@ const Write = () => {
                         {...register("description", { required: true })}
                         className="w-full py-3 px-8 focus:bg-white ring-1 rounded-md bg-gray-100 focus:outline-none border-0 text-md font-semibold"
                     ></textarea>
-                    {errors.exampleRequired && <h2>This field is required</h2>}
+                    {errors.exampleRequired && <span>This field is required</span>}
                     <button
-                        // onClick={()=>{}}
                         className="cursor-pointer my-6 inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
                         type="submit"
-                        value={name}>
+                    >
                         Submit
                     </button>
+                    <Toaster />
                 </form>
             </div>
         </>
