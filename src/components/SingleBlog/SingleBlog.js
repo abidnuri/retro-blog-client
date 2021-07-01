@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
-
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const SingleBlog = (props) => {
     const { _id, name, imageURL, description } = props.blg;
-
+    useEffect(() => {
+        AOS.init();
+        AOS.refresh();
+      }, []);
     return (
-        <div className="p-4 md:w-1/3">
+        <div className="p-4 md:w-1/3" data-aos="zoom-out-right">
             <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
                 <img className="object-contain md:object-scale-down" src={imageURL} alt="blog" />
                 <div className="p-6">
